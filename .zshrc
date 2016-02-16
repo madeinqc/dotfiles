@@ -1,9 +1,12 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/madeinqc/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+if [[ "$(uname -s)" -ne "Darwin" ]]
+then
+  # Base16 Shell
+  BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+  [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+fi
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -53,11 +56,14 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow-completion bower brew history node npm sudo web-search)
+plugins=(git git-flow git-flow-completion bower brew history node npm sudo web-searchtmux tmuxinator osx)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/madeinqc/Android/Sdk/platform-tools/"
+if [[ "$(uname -s)" -ne "Darwin" ]]
+then
+  export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/madeinqc/Android/Sdk/platform-tools/"
+fi
 export VISUAL="vim"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -68,7 +74,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+  export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -100,7 +106,17 @@ export FIREFOX_BIN=/opt/firefox/firefox
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 PATH="$NPM_PACKAGES/bin:$PATH"
-# Unset manpath so we can inherit from /etc/manpath via the `manpath`
-# command
-unset MANPATH # delete if you already modified MANPATH elsewhere in your config
-MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+if [[ "$(uname -s)" -ne "Darwin" ]]
+then
+  # Unset manpath so we can inherit from /etc/manpath via the `manpath`
+  # command
+  unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+  MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+fi
+
+if [[ "$(uname -s)" -eq "Darwin" ]]
+then
+  eval "$(rbenv init -)"
+  source ~/.bin/tmuxinator.zsh
+fi
