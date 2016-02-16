@@ -1,6 +1,7 @@
 #!/bin/sh
 
-ln -s .gitconfig ~/.gitconfig
-ln -s .npmrc ~/.npmrc
-ln -s .vimrc ~/.vimrc
-ln -s .zshrc ~/.zshrc
+cp .gitconfig ~/
+cp .npmrc ~/
+cp .vimrc ~/
+cp .zshrc ~/
+cp -r .oh-my-zsh ~/
