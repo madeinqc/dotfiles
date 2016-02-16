@@ -1,8 +1,3 @@
-"set t_Co=256
-let base16colorspace=256	" Access colors present in 256 colorspace
-colorscheme base16-default
-set background=dark
-
 syntax on
 
 set number
@@ -40,6 +35,7 @@ Plugin 'guns/vim-clojure-highlight' " Better highlight (locals, imports)
 Plugin 'LucHermitte/lh-vim-lib' " Allow a _vimrc_local.vim
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'arteymix/vim-ocl' " OCL Highlight
+Plugin 'chriskempson/base16-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,6 +51,11 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+"set t_Co=256
+let base16colorspace=256	" Access colors present in 256 colorspace
+colorscheme base16-default
+set background=dark
 
 set hidden
 set visualbell
