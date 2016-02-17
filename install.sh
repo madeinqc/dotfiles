@@ -4,7 +4,9 @@ cp .gitconfig ~/
 cp .npmrc ~/
 cp .vimrc ~/
 cp .zshrc ~/
-cp -r .oh-my-zsh ~/
+
+# install .oh-my-zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # install Vundle
 mkdir -p ~/.vim/bundle
