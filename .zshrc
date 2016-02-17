@@ -1,12 +1,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-if [[ "$(uname -s)" -ne "Darwin" ]]
-then
-  # Base16 Shell
-  BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-  [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-fi
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -19,7 +16,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -34,7 +31,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -79,7 +76,22 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
+# Set zsh in vim mode
+bindkey -v
+# Reduce mode switching
+export KEYTIMEOUT=1
+# Show which mode we're in
+function zle-line-init zle-keymap-select {
+  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+# Bind common shortcut for vim mode
+bindkey '^w' backward-kill-word # ctrl-w removed word backwards
+bindkey '^r' history-incremental-search-backward # history search
+
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
